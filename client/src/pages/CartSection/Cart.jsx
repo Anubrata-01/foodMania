@@ -191,7 +191,7 @@ const Cart = ({ Navbar }) => {
           </label>
           <p className="text-sm text-gray-600 ml-6">
             Unwell, or avoiding contact? Please select no-contact delivery.
-            Partner will safely place the order outside your door (not for COD).
+            Partner will safely place the order outside your door (not for COD)
           </p>
         </div>
         <div className="bg-gray-100 p-4 rounded-lg mb-6">
