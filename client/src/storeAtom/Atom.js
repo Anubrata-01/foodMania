@@ -5,4 +5,6 @@ export  const topRestaurantDetailsDataAtom=atom([]);
 export const cartItemsAtom=atom([]);
 export  const userIdAtom=atom();
 export const userDetailsAtom=atom();
+export const userAddressDetailsAtom=atom();
+
 

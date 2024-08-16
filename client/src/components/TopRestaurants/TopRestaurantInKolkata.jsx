@@ -21,8 +21,8 @@ const TopRestaurantInKolkata = ({ resdata,error,isLoading }) => {
   const scrollRef = useRef(null);
   if(error) return <p>There is problem:{error.message}</p>
   return (
-    <section className="mt-5 ml-1 md:ml-8">
-      <section className="ml-[7%] md:ml-[3%] flex justify-between">
+    <section className="mt-5 md:ml-[3%] w-[100%] md:w-[95%]">
+      <section className="ml-[8.5%] md:ml-[3%] flex justify-between">
         <h1 className="text-lg md:text-2xl text-pretty font-semibold">
           {restaurantChainKolkataTitle}
         </h1>

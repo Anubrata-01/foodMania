@@ -23,7 +23,7 @@ const MoodItemContainer = () => {
   console.log(moodData);
 
   return (
-    <div className="">
+    <div className=" w-[90%]">
       <ItemsDetailsContainer Mooddata={moodData} />
     </div>
   );

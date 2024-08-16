@@ -25,7 +25,7 @@ const ItemsDetailsContainer = ({ Mooddata }) => {
   console.log(moodRescards);
 
   return (
-    <section>
+    <section className=" ">
       <section className="ml-[16%] mt-[2%] md:ml-[7%]">
         <div>
           <p className="text-2xl font-bold">{title}</p>

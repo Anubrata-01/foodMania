@@ -31,7 +31,7 @@ const Hero = () => {
   if (isLoading) return <ShimmerEffect />;
 
   return (
-    <section className="bg-gray-200 p-3">
+    <section className="bg-gray-200 p-3 md:w-[100%] overflow-hidden">
       <Suspense fallback={<ShimmerEffect />}>
         <RestaurantContainer {...sharedProps} />
         <TopRestaurantChainInKolkata {...sharedProps} />

@@ -20,7 +20,7 @@ const RestaurantContainer = ({ resdata, error, isLoading }) => {
   const scrollRef = useRef(null);
   if (error) return <p>Error: {error.message}</p>;
   return (
-    <section className="mt-6  md:ml-8">
+    <section className=" md:w-[95%] w-[100%] mt-6  md:ml-8">
       <section className="ml-[7%] md:ml-[3%] flex justify-between">
         <h1 className="text-lg md:text-2xl text-pretty font-semibold">
           {moodDataTitle}

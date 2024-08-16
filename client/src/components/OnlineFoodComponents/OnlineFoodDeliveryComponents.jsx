@@ -65,8 +65,8 @@ console.log(filteredRestaurants);
     );
 
   return (
-    <section className="mt-5 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      <h1 className="text-lg sm:text-2xl font-semibold mb-4 ml-4 md:-ml-2">
+    <section className="mt-5 px-4 sm:px-6 lg:px-8 md:w-[93%] w-[100%] mx-auto">
+      <h1 className="text-lg sm:text-2xl font-semibold mb-4 ml-4 md:ml-4 ">
         {OnlineFoodDeliverTitle}
       </h1>
       <FilterButtons
@@ -75,7 +75,7 @@ console.log(filteredRestaurants);
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
       />
-      <div className="ml-2 md:ml-0 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className=" w-[94%] md:w-[94%] ml-2 md:ml-0 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {filteredRestaurants.map((item, index) => {
           const {
             id,

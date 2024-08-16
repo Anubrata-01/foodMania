@@ -13,6 +13,8 @@ import SignInForm from "./pages/Authentication/SignIn.jsx";
 import SignUpForm from "./pages/Authentication/SignUp.jsx";
 import Success from "./pages/Success.jsx";
 import Cancel from "./pages/Cancel.jsx";
+import UserProfile from "./pages/ProfileSection/UserProfile.jsx";
+import OrderHistory from "./pages/OrderHistory.jsx";
 
 const queryClient = new QueryClient();
 
@@ -43,6 +45,10 @@ const router = createBrowserRouter([
       { path: "/signup", element: <SignUpForm /> },
       { path: "/success", element: <Success /> },
       { path: "/cancel", element: <Cancel /> },
+      { path: "/profile", element: <UserProfile/> },
+      { path: "/profile/orders", element: <OrderHistory/> },
+
+
 
 
     ],
