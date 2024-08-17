@@ -1,18 +1,16 @@
 /* eslint-disable no-undef */
 import { useAtom } from "jotai";
-import { cartItemsAtom, userDetailsAtom } from "../../storeAtom/Atom";
+import { cartItemsAtom, userAddressDetailsAtom, userDetailsAtom } from "../../storeAtom/Atom";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Swigy_url } from "../../constant/data";
 import { toast } from "react-toastify";
 import {loadStripe} from '@stripe/stripe-js'; 
-const Cart = ({ Navbar }) => {
+const Cart = () => {
   const [cartItems, setCartItems] = useAtom(cartItemsAtom);
   const [noContactDelivery, setNoContactDelivery] = useState(false);
-  const [userDetails, setUserDetails] = useAtom(userDetailsAtom); 
-
+  const [userDetails] = useAtom(userDetailsAtom);   
   const navigate = useNavigate();
-
   useEffect(() => {
     window.scrollTo(0, 0);
     if(!userDetails){
@@ -22,7 +20,6 @@ const Cart = ({ Navbar }) => {
     }
   }, [userDetails]);
   console.log(cartItems);
-  
   const totalAmount = useMemo(() => {
     return cartItems.reduce(
       (total, item) => total + item.price * item.quantity,
@@ -101,7 +98,7 @@ const Cart = ({ Navbar }) => {
   console.log(cartItems);
   if (cartItems.length === 0) {
     return (
-      <div className="bg-stone-200 flex flex-col items-center justify-center h-[450px]">
+      <div className="bg-stone-200 flex flex-col items-center justify-center h-[570px]">
         {ImgCon}
         <p className="text-xl font-semibold text-gray-600">
           Your cart is empty

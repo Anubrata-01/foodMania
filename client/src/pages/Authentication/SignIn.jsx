@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { Client, Account } from 'appwrite';
@@ -24,21 +24,29 @@ const SignInForm = () => {
   const onSubmit = async (data) => {
     setLoading(true);
     const { email, password } = data;
-
+  
     try {
       await account.createEmailPasswordSession(email, password);
       await account.getSession("current");
-        const user = await account.get();
+      const user = await account.get();
+      setUserDetails(user);
+      localStorage.setItem("userDetails", JSON.stringify(user)); // Cache user details
       setLoading(false);
-      setUserDetails(user)
-      navigate("/"); 
+      navigate("/");
       toast.success("Jaa zee le apni Zindagi!!");
-
     } catch (error) {
       setLoading(false);
       console.error('Error signing in:', error.message);
+      toast.error("Sign in failed. Please check your credentials.");
     }
   };
+  useEffect(() => {
+    const storedUserDetails = localStorage.getItem("userDetails");
+    if (storedUserDetails) {
+      setUserDetails(JSON.parse(storedUserDetails));
+    }
+  }, [setUserDetails]);
+  
 
   return (
     <div className="min-h-screen md:mt-0 -mt-20 flex items-center justify-center bg-gray-100">
@@ -93,17 +101,4 @@ const SignInForm = () => {
 };
 
 export default SignInForm;
-
-
-
-
-
-
-
-
-// Anubrata@3604
-// amon:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd2cGJuZ3poaXZjbXFqaHV2enpnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjIzOTg1OTYsImV4cCI6MjAzNzk3NDU5Nn0.DpFUOM6Oxy5S43SAdbf0r1TzTkcrQBxDxBC88XBQSbM
-// apikey:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd2cGJuZ3poaXZjbXFqaHV2enpnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjIzOTg1OTYsImV4cCI6MjAzNzk3NDU5Nn0.DpFUOM6Oxy5S43SAdbf0r1TzTkcrQBxDxBC88XBQSbM
-// passkey:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd2cGJuZ3poaXZjbXFqaHV2enpnIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcyMjM5ODU5NiwiZXhwIjoyMDM3OTc0NTk2fQ.5lniRsXXpr0KPfa_xI-euoffNoJoLc3vhjQNO6wVUJ4
-// url:https://gvpbngzhivcmqjhuvzzg.supabase.co
 

@@ -38,33 +38,43 @@ const Navbar = () => {
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
-         await account.getSession("current");
-        const user = await account.get();
-        console.log('User details:', user);
-        setUserDetails(user);
+        const storedUserDetails = localStorage.getItem("userDetails");
+        if (storedUserDetails) {
+          setUserDetails(JSON.parse(storedUserDetails));
+        } else {
+          await account.getSession("current");
+          const user = await account.get();
+          console.log('User details:', user);
+          setUserDetails(user);
+          localStorage.setItem("userDetails", JSON.stringify(user));
+        }
       } catch (error) {
         console.error("Error checking auth status:", error);
         setUserDetails(null);
+        localStorage.removeItem("userDetails");
       }
     };
     checkAuthStatus();
-  }, []);
+  }, [setUserDetails]);
+  
 console.log(userDetails);
 
-  const handleSignOut = async () => {
-    setIsLoggingOut(true);
-    try {
-      await account.deleteSession("current");
-      setUserDetails(null);
-      navigate("/");
-      setDropdownOpen(false);
-      setIsOpen(false);
-    } catch (error) {
-      console.error("Error signing out:", error);
-    } finally {
-      setIsLoggingOut(false);
-    }
-  };
+const handleSignOut = async () => {
+  setIsLoggingOut(true);
+  try {
+    await account.deleteSession("current");
+    setUserDetails(null);
+    localStorage.removeItem("userDetails");
+    navigate("/");
+    setDropdownOpen(false);
+    setIsOpen(false);
+  } catch (error) {
+    console.error("Error signing out:", error);
+  } finally {
+    setIsLoggingOut(false);
+  }
+};
+
 
   const NAV_ITEMS = [
     { to: "/search", label: "Search", icon: <MdOutlineSearch /> },
