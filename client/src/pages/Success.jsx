@@ -1,8 +1,8 @@
+/* eslint-disable no-undef */
 import { useAtom } from "jotai";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { userAddressDetailsAtom } from "../storeAtom/Atom";
-
 const Success = () => {
   const [userAddressDetails, setUserAddressDetails] = useAtom(
     userAddressDetailsAtom
@@ -18,14 +18,6 @@ const Success = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    const storedAddress = localStorage.getItem("userAddressDetails");
-    if (storedAddress) {
-      setFormData(JSON.parse(storedAddress));
-    } else if (userAddressDetails) {
-      setFormData(userAddressDetails);
-    }
-  }, [userAddressDetails]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -34,18 +26,38 @@ const Success = () => {
         ...prevData,
         [name]: value,
       };
-      localStorage.setItem("userAddressDetails", JSON.stringify(updatedData));
       return updatedData;
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setUserAddressDetails(formData);
-    navigate("/")
+  
+    try {
+      const response = await fetch('http://localhost:7000/api/saveAddress', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to save address');
+      }
+  
+      const data = await response.json();
+      console.log('Address saved to database:', data);
+      // navigate("/");
+    } catch (error) {
+      console.error('Error saving address to database:', error);
+      alert('Failed to save address. Please try again.');
+    }
+  
     console.log("Shipping address submitted:", formData);
   };
-
+  
   const useCurrentAddress = () => {
     if (userAddressDetails) {
       setFormData(userAddressDetails);
