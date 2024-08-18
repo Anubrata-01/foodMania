@@ -86,11 +86,11 @@ const handleSignOut = async () => {
   ];
 
   return (
-    <nav className={`sticky top-0 z-50 transition-all duration-200 ${isScrolled ? "bg-white shadow-md py-2" : "bg-transparent py-1"}`}>
+    <nav className={`sticky top-0 z-10 transition-all duration-200 ${isScrolled ? "bg-white shadow-md py-2" : "bg-transparent py-1"}`}>
       <div className="w-[90%] mx-auto  sm:px-6 lg:px-3">
         <div className="flex items-center justify-between h-16 -mt-4">
           <div className="flex-shrink-0 ml-5 md:ml-0">
-            <span className="text-2xl font-bold text-red-600 cursor-pointer" onClick={() => navigate("/")}>
+            <span className="text-2xl font-bold text-red-600 cursor-pointer z-0" onClick={() => navigate("/")}>
               FoodStore
             </span>
           </div>

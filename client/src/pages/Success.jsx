@@ -49,7 +49,7 @@ const Success = () => {
   
       const data = await response.json();
       console.log('Address saved to database:', data);
-      // navigate("/");
+      navigate("/");
     } catch (error) {
       console.error('Error saving address to database:', error);
       alert('Failed to save address. Please try again.');
