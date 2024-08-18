@@ -1,10 +1,34 @@
 import { useAtom } from "jotai";
 import { userAddressDetailsAtom, userDetailsAtom } from "../../storeAtom/Atom";
+import { useEffect, useState } from "react";
 
 const ProfileSection = () => {
   const [userAddressDetails, setUserAddressDetails] = useAtom(userAddressDetailsAtom);
   const [userDetails, setUserDetails] = useAtom(userDetailsAtom);
-  const{PhNo,city,addressLine1,country,state,zipCode}=userAddressDetails || {};
+  const [address,setAddress]=useState();
+  
+  // const{PhNo,city,addressLine1,country,state,zipCode}=userAddressDetails ||{} ;
+  const{PhNo,city,addressLine1,country,state,zipCode}=address?address[0]:{};
+  console.log(address && address[0]);
+  
+  const getUserAddressDetails=async()=>{
+    try{
+      const response = await fetch('http://localhost:7000/api/getAddress', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const data=await response.json();
+      setAddress(data);
+      // console.log(data);
+    }catch(error){
+      console.log("The error is",error)
+    }
+  }
+  useEffect(()=>{
+    getUserAddressDetails()
+  },[])
   return (
     <div>
       <h2 className="text-2xl md:text-3xl font-bold mb-6">Profile</h2>
@@ -35,7 +59,7 @@ const ProfileSection = () => {
           <div>
             <h4 className="text-lg font-semibold mb-2">Address</h4>
             {
-              userAddressDetails?(
+              address?(
             <p>{addressLine1}, {city} ,{state},{country},{zipCode}</p>
 
               ):"Address is not available"
