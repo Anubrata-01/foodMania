@@ -5,6 +5,9 @@ const connectToDB = require('./database/db');
 const saveAddress=require("./routes/saveAddress");
 const getAddress=require("./routes/getUserAddress")
 const checkoutSession=require("./routes/checkOutSession")
+const paymentSuccess=require("./routes/paymentSuccess");
+const orderDetails=require("./routes/getOrderDetails");
+
 app.use(express.json());
 app.use(cors({
   origin: 'http://localhost:5173'
@@ -18,5 +21,7 @@ connectToDB();
 app.use('/api',checkoutSession);
 app.use('/api',saveAddress);
 app.use('/api',getAddress);
+app.use('/api',paymentSuccess);
+app.use('/api',orderDetails);
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

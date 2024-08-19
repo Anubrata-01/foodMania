@@ -62,7 +62,8 @@ const Cart = () => {
       const stripe = await loadStripe("pk_test_51Pm6P5RvOgF1bnDE9oBvxFrkl3UNdktLzzXV1y03ru59sIGyCDvUN01EVsUQNwklBW4qLnT6lSaLtJvaZ5OAH1TD00YoC5fLA6");
   
       const body = {
-        products: cartItems
+        products: cartItems,
+        userDetails:userDetails
       };
   
       const response = await fetch("http://localhost:7000/api/create-checkout-session", {
@@ -75,6 +76,7 @@ const Cart = () => {
   
       if (response.ok) {
         const session = await response.json();
+        console.log(session)
         const result = await stripe.redirectToCheckout({
           sessionId: session.id
         });

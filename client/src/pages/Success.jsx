@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import { useAtom } from "jotai";
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { userAddressDetailsAtom } from "../storeAtom/Atom";
 const Success = () => {
   const [userAddressDetails, setUserAddressDetails] = useAtom(
@@ -17,6 +17,32 @@ const Success = () => {
     country: "",
   });
   const [isLoading, setIsLoading] = useState(false);
+  const location = useLocation();
+  useEffect(() => {
+    const sessionId = new URLSearchParams(location.search).get("session_id");
+    console.log(sessionId)
+    if (sessionId) {
+      fetch("http://localhost:7000/api/payment-success", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ session_id: sessionId }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data.message);
+        })
+        .catch((error) => {
+          console.error("Error confirming payment:", error);
+        });
+    }
+  }, [location]);
 
 
   const handleInputChange = (e) => {
@@ -33,31 +59,31 @@ const Success = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setUserAddressDetails(formData);
-  
+
     try {
-      const response = await fetch('http://localhost:7000/api/saveAddress', {
-        method: 'POST',
+      const response = await fetch("http://localhost:7000/api/saveAddress", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
-  
+
       if (!response.ok) {
-        throw new Error('Failed to save address');
+        throw new Error("Failed to save address");
       }
-  
+
       const data = await response.json();
-      console.log('Address saved to database:', data);
+      console.log("Address saved to database:", data);
       navigate("/");
     } catch (error) {
-      console.error('Error saving address to database:', error);
-      alert('Failed to save address. Please try again.');
+      console.error("Error saving address to database:", error);
+      alert("Failed to save address. Please try again.");
     }
-  
+
     console.log("Shipping address submitted:", formData);
   };
-  
+
   const useCurrentAddress = () => {
     if (userAddressDetails) {
       setFormData(userAddressDetails);
