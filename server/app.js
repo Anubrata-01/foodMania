@@ -7,6 +7,8 @@ const getAddress=require("./routes/getUserAddress")
 const checkoutSession=require("./routes/checkOutSession")
 const paymentSuccess=require("./routes/paymentSuccess");
 const orderDetails=require("./routes/getOrderDetails");
+const updateAddress=require("./routes/updateAddress");
+
 
 app.use(express.json());
 app.use(cors({
@@ -23,5 +25,7 @@ app.use('/api',saveAddress);
 app.use('/api',getAddress);
 app.use('/api',paymentSuccess);
 app.use('/api',orderDetails);
+app.use('/api',updateAddress);
+
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
