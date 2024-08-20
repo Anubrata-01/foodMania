@@ -3,6 +3,7 @@ import { useAtom } from "jotai";
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { userAddressDetailsAtom } from "../storeAtom/Atom";
+import { toast } from "react-toastify";
 const Success = () => {
   const [userAddressDetails, setUserAddressDetails] = useAtom(
     userAddressDetailsAtom
@@ -20,7 +21,7 @@ const Success = () => {
   const location = useLocation();
   useEffect(() => {
     const sessionId = new URLSearchParams(location.search).get("session_id");
-    console.log(sessionId)
+    console.log(sessionId);
     if (sessionId) {
       fetch("http://localhost:7000/api/payment-success", {
         method: "POST",
@@ -44,7 +45,6 @@ const Success = () => {
     }
   }, [location]);
 
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => {
@@ -58,7 +58,7 @@ const Success = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setUserAddressDetails(formData);
+    setIsLoading(true);
 
     try {
       const response = await fetch("http://localhost:7000/api/saveAddress", {
@@ -69,16 +69,23 @@ const Success = () => {
         body: JSON.stringify(formData),
       });
 
-      if (!response.ok) {
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log("Address saved or updated in database:", data);
+        setUserAddressDetails(formData);
+        navigate("/");
+      } else if (response.status === 409) {
+        console.log("Address already exists in database");
+        toast("Address already exists in database");
+      } else {
         throw new Error("Failed to save address");
       }
-
-      const data = await response.json();
-      console.log("Address saved to database:", data);
-      navigate("/");
     } catch (error) {
       console.error("Error saving address to database:", error);
       alert("Failed to save address. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
 
     console.log("Shipping address submitted:", formData);
@@ -141,12 +148,12 @@ const Success = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto my-12 p-8 bg-slate-300 rounded-lg shadow-md">
-      <div className="text-6xl text-green-500 mb-6 text-center">✓</div>
-      <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+    <div className="max-w-sm mx-auto my-8 p-6 bg-slate-300 rounded-lg shadow-md">
+      <div className="text-2xl text-green-500 mb-2 text-center">✓</div>
+      <h2 className="text-2xl font-bold text-gray-800 mb-2 text-center">
         Payment Successful!
       </h2>
-      <p className="text-gray-600 mb-6 text-center">
+      <p className="text-gray-600 mb-2 text-center">
         Thank you for your purchase. Please provide your shipping address.
       </p>
 
@@ -169,66 +176,69 @@ const Success = () => {
         </button>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          type="text"
-          name="PhNo"
-          value={formData.PhNo}
-          onChange={handleInputChange}
-          placeholder="Phone Number"
-          className="w-full px-3 py-2 border rounded-md"
-          required
-        />
+      <form onSubmit={handleSubmit} className="space-y-3">
+        <div className="grid grid-cols-2 gap-4">
+          <input
+            type="text"
+            name="PhNo"
+            value={formData.PhNo}
+            onChange={handleInputChange}
+            placeholder="Phone Number"
+            className="w-full px-2 py-1 text-sm border rounded-md"
+            required
+          />
+          <input
+            type="text"
+            name="zipCode"
+            value={formData.zipCode}
+            onChange={handleInputChange}
+            placeholder="ZIP Code"
+            className="w-full px-2 py-1 text-sm border rounded-md"
+            required
+          />
+        </div>
         <input
           type="text"
           name="addressLine1"
           value={formData.addressLine1}
           onChange={handleInputChange}
           placeholder="Address Line 1"
-          className="w-full px-3 py-2 border rounded-md"
+          className="w-full px-2 py-1 text-sm border rounded-md"
           required
         />
-
-        <input
-          type="text"
-          name="city"
-          value={formData.city}
-          onChange={handleInputChange}
-          placeholder="City"
-          className="w-full px-3 py-2 border rounded-md"
-          required
-        />
-        <input
-          type="text"
-          name="state"
-          value={formData.state}
-          onChange={handleInputChange}
-          placeholder="State"
-          className="w-full px-3 py-2 border rounded-md"
-          required
-        />
-        <input
-          type="text"
-          name="zipCode"
-          value={formData.zipCode}
-          onChange={handleInputChange}
-          placeholder="ZIP Code"
-          className="w-full px-3 py-2 border rounded-md"
-          required
-        />
+        <div className="grid grid-cols-2 gap-3">
+          <input
+            type="text"
+            name="city"
+            value={formData.city}
+            onChange={handleInputChange}
+            placeholder="City"
+            className="w-full px-2 py-1 text-sm border rounded-md"
+            required
+          />
+          <input
+            type="text"
+            name="state"
+            value={formData.state}
+            onChange={handleInputChange}
+            placeholder="State"
+            className="w-full px-2 py-1 text-sm border rounded-md"
+            required
+          />
+        </div>
         <input
           type="text"
           name="country"
           value={formData.country}
           onChange={handleInputChange}
           placeholder="Country"
-          className="w-full px-3 py-2 border rounded-md"
+          className="w-full px-2 py-1 text-sm border rounded-md"
           required
         />
         <button
           type="submit"
-          className="w-full bg-green-500 text-white px-6 py-2 rounded-md font-medium
-                    hover:bg-green-600 transition duration-300 ease-in-out"
+          className="w-full bg-green-500 text-white px-4 py-2 text-sm rounded-md font-medium
+              hover:bg-green-600 transition duration-300 ease-in-out"
         >
           Submit Shipping Address
         </button>

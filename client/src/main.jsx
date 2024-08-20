@@ -36,7 +36,7 @@ const router = createBrowserRouter([
       { path: "/", element: <Hero /> },
       { path: ":userId", element: <Suspense><MoodItemContainer/></Suspense> },
       { path: "/top-res/:userId", element: <Suspense><FoodDeliveryDetails/></Suspense>  },
-      { path: "/mod-restaurant/:userId", element: <FoodDeliveryDetails/> },
+      { path: "/mod-restaurant/:userId", element:<Suspense><FoodDeliveryDetails/></Suspense> },
       { path: "/online-restaurant/:userId", element: <FoodDeliveryDetails/> },
       { path: "/searched-food/:userId", element: <Suspense fallback={<ShimmerEffect/>}><FoodDeliveryDetails/></Suspense>  },
       { path: "/cart", element: <LazyComponent component={CartComponent} /> },
