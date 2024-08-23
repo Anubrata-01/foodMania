@@ -17,7 +17,7 @@ app.use(cors({
 
 const PORT = process.env.PORT || 7000;
 app.get('/', (req, res) => {
-  res.send('Backend is running!');
+  res.send('Backend is running');
 });
 connectToDB();
 app.use('/api',checkoutSession);
