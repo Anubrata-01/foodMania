@@ -1,6 +1,7 @@
 import { useAtom } from "jotai";
 import { useEffect, useState, useMemo } from "react";
 import { userDetailsAtom } from "../../storeAtom/Atom";
+import API_URL from "../../constant/data";
 
 const OrderStatus = ({ status }) => {
   const statusStyle = useMemo(() => {
@@ -26,7 +27,7 @@ const OrdersSection = () => {
   useEffect(() => {
     const getOrdersDetails = async () => {
       try {
-        const response = await fetch('http://localhost:7000/api/getOrders', {
+        const response = await fetch(`${API_URL}/api/getOrders`, {
           headers: { 'Content-Type': 'application/json' },
         });
         const data = await response.json();

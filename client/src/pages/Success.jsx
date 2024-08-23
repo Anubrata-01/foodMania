@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { userAddressDetailsAtom } from "../storeAtom/Atom";
 import { toast } from "react-toastify";
+import API_URL from "../constant/data";
 const Success = () => {
   const [userAddressDetails, setUserAddressDetails] = useAtom(
     userAddressDetailsAtom
@@ -23,7 +24,7 @@ const Success = () => {
     const sessionId = new URLSearchParams(location.search).get("session_id");
     console.log(sessionId);
     if (sessionId) {
-      fetch("http://localhost:7000/api/payment-success", {
+      fetch(`${API_URL}/api/payment-success`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -61,7 +62,7 @@ const Success = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://localhost:7000/api/saveAddress", {
+      const response = await fetch(`${API_URL}/api/saveAddress`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -256,3 +257,4 @@ const Success = () => {
 };
 
 export default Success;
+

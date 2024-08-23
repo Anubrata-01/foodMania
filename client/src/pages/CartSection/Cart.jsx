@@ -3,7 +3,7 @@ import { useAtom } from "jotai";
 import { cartItemsAtom, userAddressDetailsAtom, userDetailsAtom } from "../../storeAtom/Atom";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Swigy_url } from "../../constant/data";
+import API_URL, { Swigy_url } from "../../constant/data";
 import { toast } from "react-toastify";
 import {loadStripe} from '@stripe/stripe-js'; 
 const Cart = () => {
@@ -66,7 +66,7 @@ const Cart = () => {
         userDetails:userDetails
       };
   
-      const response = await fetch("http://localhost:7000/api/create-checkout-session", {
+      const response = await fetch(`${API_URL}/api/create-checkout-session`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -219,3 +219,4 @@ const Cart = () => {
 };
 
 export default Cart;
+

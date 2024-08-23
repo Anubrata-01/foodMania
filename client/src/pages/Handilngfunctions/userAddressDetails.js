@@ -1,8 +1,9 @@
 import { toast } from "react-toastify";
+import API_URL from "../../constant/data";
 
 export const getUserAddressDetails = async ({setAddress}) => {
     try {
-      const response = await fetch('http://localhost:7000/api/getAddress', {
+      const response = await fetch(`${API_URL}/api/getAddress`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -18,7 +19,7 @@ export const getUserAddressDetails = async ({setAddress}) => {
 
   export const updateAddressDetails = async (editAddress,{setAddress}) => {
     try {
-        const response = await fetch("http://localhost:7000/api/updateAddress", {
+        const response = await fetch(`${API_URL}/api/updateAddress`, {
           method: "PUT",
           headers: {
             'Content-Type': 'application/json',
