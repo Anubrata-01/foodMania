@@ -8,7 +8,7 @@ const checkoutSession = require("./routes/checkOutSession");
 const paymentSuccess = require("./routes/paymentSuccess");
 const orderDetails = require("./routes/getOrderDetails");
 const updateAddress = require("./routes/updateAddress");
-
+const { createProxyMiddleware } = require('http-proxy-middleware');
 app.use(express.json());
 app.use(cors({
   origin: ['https://foodmaniaclient.onrender.com']
@@ -21,7 +21,13 @@ app.get('/', (req, res) => {
 });
 
 connectToDB();
-
+app.use('/appwrite-api', createProxyMiddleware({
+  target: 'https://cloud.appwrite.io',
+  changeOrigin: true,
+  pathRewrite: {
+    '^/appwrite-api': '', // remove /appwrite-api from path
+  },
+}));
 app.use('/api', checkoutSession);
 app.use('/api', saveAddress);
 app.use('/api', getAddress);
