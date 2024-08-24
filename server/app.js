@@ -8,10 +8,19 @@ const checkoutSession = require("./routes/checkOutSession");
 const paymentSuccess = require("./routes/paymentSuccess");
 const orderDetails = require("./routes/getOrderDetails");
 const updateAddress = require("./routes/updateAddress");
-// const { createProxyMiddleware } = require('http-proxy-middleware');
 app.use(express.json());
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://foodmaniaclient.onrender.com"
+];
 app.use(cors({
-  origin: "http://localhost:5173"
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
 }));
 
 const PORT = process.env.PORT || 7000;

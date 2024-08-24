@@ -30,14 +30,14 @@ const SignInForm = () => {
       await account.getSession("current");
       const user = await account.get();
       setUserDetails(user);
-      localStorage.setItem("userDetails", JSON.stringify(user)); // Cache user details
+      localStorage.setItem("userDetails", JSON.stringify(user)); 
       setLoading(false);
       navigate("/");
       toast.success("Jaa zee le apni Zindagi!!");
     } catch (error) {
       setLoading(false);
       console.error('Error signing in:', error.message);
-      toast.error("Sign in failed. Please check your credentials.");
+      toast.error("Sign in failed. Please check your details");
     }
   };
   useEffect(() => {
