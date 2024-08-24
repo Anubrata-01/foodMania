@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "proxy": "http://localhost:7000",
+  "proxy": ["http://localhost:7000","https://foodmaniaclient.onrender.com"],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
