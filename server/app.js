@@ -12,11 +12,11 @@ const updateAddress = require("./routes/updateAddress");
 app.use(express.json());
 
 // Correct the typo in the origin URL
-// app.use(cors({
-//   origin: ['http://localhost:5173', 'https://foodmaniaclient.onrender.com']
-// }));
+app.use(cors({
+  origin: ['https://foodmaniaclient.onrender.com']
+}));
 
-app.use(cors());
+// app.use(cors());
 
 const PORT = process.env.PORT || 7000;
 
