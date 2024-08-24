@@ -9,18 +9,21 @@ const paymentSuccess = require("./routes/paymentSuccess");
 const orderDetails = require("./routes/getOrderDetails");
 const updateAddress = require("./routes/updateAddress");
 app.use(express.json());
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://foodmaniaclient.onrender.com"
-];
+// const allowedOrigins = [
+//   "http://localhost:5173",
+//   "https://foodmaniaclient.onrender.com"
+// ];
+// app.use(cors({
+//   origin: function (origin, callback) {
+//     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error('Not allowed by CORS'));
+//     }
+//   }
+// }));
 app.use(cors({
-  origin: function (origin, callback) {
-    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  }
+  origin: "https://foodmaniaclient.onrender.com"
 }));
 
 const PORT = process.env.PORT || 7000;

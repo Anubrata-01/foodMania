@@ -24,8 +24,8 @@ router.post('/create-checkout-session', async (req, res) => {
       payment_method_types: ['card'],
       line_items: lineItems,
       mode: 'payment',
-      success_url: 'http://localhost:5173/success?session_id={CHECKOUT_SESSION_ID}',
-      cancel_url: 'http://localhost:5173/cancel',
+      success_url: 'https://foodmaniaclient.onrender.com/success?session_id={CHECKOUT_SESSION_ID}',
+      cancel_url: 'https://foodmaniaclient.onrender.com/cancel',
     });
     const totalAmount = lineItems.reduce((sum, item) => sum + (item.price_data.unit_amount * item.quantity), 0);
 
