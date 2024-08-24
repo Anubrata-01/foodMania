@@ -3,7 +3,10 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "proxy": ["http://localhost:7000","https://foodmaniaclient.onrender.com"],
+  "proxy": [
+    "http://localhost:7000",
+    "https://foodmaniaclient.onrender.com"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -26,6 +29,7 @@
     "bootstrap": "^5.0.0-alpha1",
     "browser-image-compression": "^2.0.2",
     "framer-motion": "^11.3.28",
+    "http-proxy-middleware": "^3.0.0",
     "jotai": "^2.9.0",
     "knip": "^5.26.0",
     "lazysizes": "^5.3.2",
