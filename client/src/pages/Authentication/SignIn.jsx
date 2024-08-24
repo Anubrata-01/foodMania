@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 
 const client = new Client();
 client
-    .setEndpoint('/appwrite-api/v1')
+    .setEndpoint('https://cloud.appwrite.io/v1')
     .setProject('66ac7e7d0000a652d698');
 
 const account = new Account(client);
