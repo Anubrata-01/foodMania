@@ -26,4 +26,4 @@
   ];
 
   export const OnlineFoodDeliverTitle="Restaurants with online food delivery in Kolkata"
-  export const APP_URL="https://foodmania-backend-8ran.onrender.com";
+  export const APP_URL="http://foodmania-backend-8ran.onrender.com";

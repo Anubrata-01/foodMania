@@ -12,7 +12,7 @@ const updateAddress=require("./routes/updateAddress");
 
 app.use(express.json());
 app.use(cors({
-  origin: 'https://foodmania-client.onrender.com'
+  origin: 'http://foodmania-client.onrender.com'
 }));
 
 const PORT = process.env.PORT || 7000;
