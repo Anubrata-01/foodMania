@@ -13,8 +13,9 @@ app.use(express.json());
 
 // Correct the typo in the origin URL
 app.use(cors({
-  origin: 'http://localhost:5173'||"https://foodmaniaclient.onrender.com" // Corrected origin
+  origin: ['http://localhost:5173', 'https://foodmaniaclient.onrender.com']
 }));
+
 
 const PORT = process.env.PORT || 7000;
 
