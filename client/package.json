@@ -5,7 +5,7 @@
   "type": "module",
   "proxy": [
     "http://localhost:7000",
-    "https://foodmaniaclient.onrender.com"
+    "https://foodmania-backend-8ran.onrender.com"
   ],
   "scripts": {
     "dev": "vite",
