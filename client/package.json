@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "proxy": "http://localhost:7000",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -19,6 +20,7 @@
     "@mui/material": "^5.16.0",
     "@stripe/stripe-js": "^4.2.0",
     "@supabase/supabase-js": "^2.45.0",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tanstack/react-query": "^5.50.1",
     "appwrite": "^15.0.0",
     "axios": "^1.7.4",

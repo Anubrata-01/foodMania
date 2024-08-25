@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 import RestaurantCardComponent from "../../components/TopRestaurants/RestaurantCardComponent";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import ShimmerCard from "../../utilities/ShimmerCard";
 
 const ItemsDetailsContainer = ({ Mooddata }) => {
@@ -21,18 +21,15 @@ const ItemsDetailsContainer = ({ Mooddata }) => {
     );
   }, [Mooddata]);
 
-  if (!title) return <ShimmerCard/>;
-  console.log(moodRescards);
+  if (!title) return <div className="ml-[14%] md:ml-0"><ShimmerCard /></div>;
 
   return (
-    <section className=" ">
-      <section className="ml-[16%] mt-[2%] md:ml-[7%]">
-        <div>
-          <p className="text-2xl font-bold">{title}</p>
-          <p className="text-lg text-gray-700">{description}</p>
-        </div>
+    <section className="container mx-auto px-4 ml-[6%] md:ml-[5%]">
+      <section className="mt-8 mb-6 ">
+        <h1 className="text-2xl font-bold">{title}</h1>
+        <p className="text-lg text-gray-700 mt-2">{description}</p>
       </section>
-      <section className="flex flex-wrap justify-center mt-[2%]">
+      <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
         {moodRescards?.map((card, index) => {
           const {
             name,
@@ -48,7 +45,11 @@ const ItemsDetailsContainer = ({ Mooddata }) => {
           } = card?.card?.card?.info;
 
           return (
-            <NavLink to={`/mod-restaurant/${card?.card?.card?.info?.id}`} key={index}>
+            <NavLink 
+              to={`/mod-restaurant/${card?.card?.card?.info?.id}`} 
+              key={index}
+              className="block h-full"
+            >
               <RestaurantCardComponent
                 name={name}
                 locality={locality}
@@ -70,4 +71,3 @@ const ItemsDetailsContainer = ({ Mooddata }) => {
 };
 
 export default ItemsDetailsContainer;
-

@@ -4,41 +4,45 @@ import ArrowCircleRightRoundedIcon from "@mui/icons-material/ArrowCircleRightRou
 import { NavLink } from "react-router-dom";
 import RestaurantCardComponent from "./RestaurantCardComponent";
 import useHandleArrow from "../../hooks/useHandleArrow";
-const TopRestaurantInKolkata = ({ resdata,error,isLoading }) => {
- 
+
+const TopRestaurantInKolkata = ({ resdata, error, isLoading }) => {
   const restaurantChainKolkataTitle = useMemo(
     () =>
       resdata?.[1]?.card?.card?.header?.title ||
       "Top restaurant chains in Kolkata",
     [resdata]
   );
+
   const restaurantChainKolkataCards = useMemo(
     () =>
       resdata?.[1]?.card?.card?.imageGridCards?.info ||
       resdata?.[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants,
     [resdata]
   );
+
   const scrollRef = useRef(null);
-  if(error) return <p>There is problem:{error.message}</p>
+
+  if (error) return <p>There is a problem: {error.message}</p>;
+
   return (
-    <section className="mt-5 md:ml-[3%] w-[100%] md:w-[95%]">
-      <section className="ml-[8.5%] md:ml-[3%] flex justify-between">
-        <h1 className="text-lg md:text-2xl text-pretty font-semibold">
+    <section className="mt-5 md:ml-[3%] w-full md:w-[95%]">
+      <section className="ml-[8.5%] md:ml-[3%] flex justify-between items-center">
+        <h1 className="text-lg md:text-2xl font-semibold">
           {restaurantChainKolkataTitle}
         </h1>
-        <aside className="mr-[.5%] md:mr-[4%] flex md:flex gap-1.5 md:gap-3">
-          <button aria-label="leftButton" onClick={()=>useHandleArrow(scrollRef,-600)}>
+        <aside className="mr-[.5%] md:mr-[4%] flex gap-1.5 md:gap-3 hidden md:block">
+          <button aria-label="leftButton" onClick={() => useHandleArrow(scrollRef, -600)}>
             <ArrowCircleLeftRoundedIcon style={{ fontSize: 32 }} />
           </button>
-          <button aria-label="rightButton" onClick={()=>useHandleArrow(scrollRef,700)}>
+          <button aria-label="rightButton" onClick={() => useHandleArrow(scrollRef, 700)}>
             <ArrowCircleRightRoundedIcon style={{ fontSize: 32 }} />
           </button>
         </aside>
       </section>
-
+      
       <section
         ref={scrollRef}
-        className="w-[100%] md:w-[95%] p-1 md:p-1 flex gap-1 overflow-x-scroll ml-4 md:ml-7 mt-2 scroll-smooth no-scrollbar"
+        className="w-full md:w-[95%] p-1 flex gap-4 overflow-x-scroll ml-4 md:ml-7 mt-2 scroll-smooth no-scrollbar"
       >
         {restaurantChainKolkataCards?.map((item, index) => {
           let entityId = item?.cta?.link;
@@ -61,16 +65,15 @@ const TopRestaurantInKolkata = ({ resdata,error,isLoading }) => {
             avgRating,
             aggregatedDiscountInfoV3
           } = item?.info;
-
+          
           return (
             <NavLink
-              to={`/top-res/${item?.info?.id}`} 
+              to={`/top-res/${item?.info?.id}`}
               key={item.id || index}
-              // onClick={() => setUsersId(entityId)}
+              className="flex-shrink-0 w-64 md:w-72"
             >
               <RestaurantCardComponent
                 name={name}
-                key={index}
                 locality={locality}
                 cuisines={cuisines}
                 costForTwo={costForTwo}

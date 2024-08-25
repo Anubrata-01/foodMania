@@ -100,12 +100,19 @@ const Cart = () => {
   console.log(cartItems);
   if (cartItems.length === 0) {
     return (
-      <div className="bg-stone-200 flex flex-col items-center justify-center h-[570px]">
-        {ImgCon}
-        <p className="text-xl font-semibold text-gray-600">
-          Your cart is empty
-        </p>
-        <p className="text-gray-400">Add some delicious items to your cart!</p>
+      <div className="bg-stone-200 flex flex-col items-center justify-center min-h-screen p-4">
+        <div className="w-full max-w-md">
+          <div className=" flex justify-center">
+          {ImgCon}
+          </div>
+          
+          <p className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-600 text-center mt-4">
+            Your cart is empty
+          </p>
+          <p className="text-sm sm:text-base md:text-lg text-gray-400 text-center mt-2">
+            Add some delicious items to your cart!
+          </p>
+        </div>
       </div>
     );
   }

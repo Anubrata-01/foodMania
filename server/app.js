@@ -12,15 +12,13 @@ const updateAddress = require("./routes/updateAddress");
 dotenv.config();
 app.use(express.json());
 
-const corsOptions = {
+app.use(cors({
   origin: process.env.NODE_ENV === 'production'
-    ? 'https://foodmaniaclient.onrender.com'
+    ? process.env.CORS_ORIGIN
     : 'http://localhost:5173',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-};
-
-app.use(cors(corsOptions));;
+}));
 
 const PORT = process.env.PORT || 7000;
 

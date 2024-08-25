@@ -104,7 +104,14 @@ console.log(allRestaurantdata);
           </ul>
         </div>
       ) : (
-        <div className='h-[450px] text-center p-5 text-lg font-bold'>Nothing to show</div>
+        <div className="bg-slate-300 flex justify-center min-h-screen p-4">
+        <div className="w-full max-w-md">
+          <p className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-600 text-center">
+            Nothing to Show!
+          </p>
+           
+        </div>
+      </div>
       )}
     </div>
   );

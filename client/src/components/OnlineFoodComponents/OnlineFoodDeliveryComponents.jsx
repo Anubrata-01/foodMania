@@ -1,12 +1,12 @@
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useMemo, useState, } from "react";
 import RestaurantCardComponent from "../TopRestaurants/RestaurantCardComponent";
 import { NavLink } from "react-router-dom";
 import { OnlineFoodDeliverTitle } from "../../constant/data";
 import { useAtom } from "jotai";
 import { userIdAtom } from "../../storeAtom/Atom";
-import FilterButtons from './FilterButtons'; // Import the FilterButtons component
+import FilterButtons from './FilterButtons'; 
 
-const OnlineFoodDeliveryComponents = ({ resdata, error, isLoading, extraRestsData = [], isLoadingMore }) => {
+const OnlineFoodDeliveryComponents = ({ resdata, error, isLoading }) => {
   const [, setUsersId] = useAtom(userIdAtom);
   const [selectedFilter, setSelectedFilter] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
@@ -75,7 +75,7 @@ console.log(filteredRestaurants);
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
       />
-      <div className=" w-[94%] md:w-[94%] ml-2 md:ml-0 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className=" w-[100%] md:w-[94%] ml-2 md:ml-0 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {filteredRestaurants.map((item, index) => {
           const {
             id,
@@ -93,7 +93,7 @@ console.log(filteredRestaurants);
           return (
             <NavLink
               to={`/online-restaurant/${id}`}
-              key={`${id}-${index}`}  // Use a composite key
+              key={`${id}-${index}`}
               onClick={() => setUsersId()}
               className="block rounded-lg overflow-hidden"
             >

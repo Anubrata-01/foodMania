@@ -1,4 +1,3 @@
-// import PropTypes from "prop-types";
 import { Star_svg, Swigy_url } from "../../constant/data";
 import React from "react";
 const RestaurantCardComponent = ({
@@ -19,7 +18,7 @@ const RestaurantCardComponent = ({
       if (totalLength + cuisine.length > maxLength) break;
       result.push(cuisine);
       totalLength += cuisine.length;
-      if (totalLength < maxLength) totalLength++; // Account for the comma and space
+      if (totalLength < maxLength) totalLength++; 
     }
 
     return result;
@@ -34,16 +33,17 @@ const RestaurantCardComponent = ({
     name.length > maxNameLength ? `${name.slice(0, maxNameLength)}...` : name;
 
   return (
-    <section className="bg-white rounded-lg shadow-md overflow-hidden m-2  h-[30]">
-      <section className="relative">
-        <div className=" w-64">
-        <img src={Swigy_url + imageUrl} alt="img" className=" w-full h-40 object-cover" loading="lazy"/>
-
-        </div>
-        {/* <img src={Swigy_url + imageUrl} alt="img" className=" w-48 h-40 object-cover" /> */}
-        <div className="absolute bottom-0 left-0 bg-black bg-opacity-50 text-white p-1 text-sm">
+    <section className="bg-white rounded-lg shadow-md overflow-hidden m-2">
+      <section className="relative w-full aspect-w-16 aspect-h-9">
+        <img 
+          src={Swigy_url + imageUrl} 
+          alt={name} 
+          className="w-full h-full object-cover" 
+          loading="lazy"
+        />
+        <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-2 text-sm">
           {aggregatedDiscountInfoV3 ? (
-            <span className=" text-white font-bold">
+            <span className="text-white font-bold">
               {aggregatedDiscountInfoV3?.header} {aggregatedDiscountInfoV3?.subHeader}
             </span>
           ) : (

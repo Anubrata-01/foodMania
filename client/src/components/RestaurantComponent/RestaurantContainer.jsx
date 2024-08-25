@@ -20,12 +20,12 @@ const RestaurantContainer = ({ resdata, error, isLoading }) => {
   const scrollRef = useRef(null);
   if (error) return <p>Error: {error.message}</p>;
   return (
-    <section className=" md:w-[95%] w-[100%] mt-6  md:ml-8">
+    <section className=" md:w-[95%] w-[100%] mt- ml-[2%]  md:ml-10">
       <section className="ml-[7%] md:ml-[3%] flex justify-between">
         <h1 className="text-lg md:text-2xl text-pretty font-semibold">
           {moodDataTitle}
         </h1>
-        <aside className="mr-[.5%] md:mr-[4%] flex md:flex gap-1.5 md:gap-3">
+        <aside className="mr-[.1%] md:mr-[4%] flex md:flex gap-1.5 md:gap-3 hidden md:block">
           <button
             aria-label="leftButton"
             onClick={() => useHandleArrow(scrollRef, -460)}
