@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const fs = require('fs');
 const connectToDB = require('./database/db');
 const saveAddress = require("./routes/saveAddress");
 const getAddress = require("./routes/getUserAddress");
@@ -11,10 +12,10 @@ const orderDetails = require("./routes/getOrderDetails");
 const updateAddress = require("./routes/updateAddress");
 
 dotenv.config();
+
 const app = express();
 
 app.use(express.json());
-
 app.use(cors({
   origin: process.env.NODE_ENV === 'production'
     ? process.env.CORS_ORIGIN
@@ -22,6 +23,12 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
+
+// Debugging middleware
+app.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+  next();
+});
 
 // Database connection
 connectToDB();
@@ -34,14 +41,33 @@ app.use('/api', paymentSuccess);
 app.use('/api', orderDetails);
 app.use('/api', updateAddress);
 
-// Serve static files in production
 if (process.env.NODE_ENV === 'production') {
-  // Serve static files from the 'client/dist' directory
-  app.use(express.static(path.join(__dirname, 'client/dist')));
+  const clientPath = path.join(__dirname, 'client/dist');
+  
+  console.log(`Serving static files from: ${clientPath}`);
+  
+  // Check if the client/dist directory exists
+  if (fs.existsSync(clientPath)) {
+    console.log('client/dist directory exists');
+  } else {
+    console.error('client/dist directory does not exist');
+  }
 
-  // Handle all other routes by serving the index.html file
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/dist', 'index.html'));
+  // Serve static files from the React app
+  app.use(express.static(clientPath));
+
+  // Serve the index.html file for any request that doesn't match an API route or static file
+  app.get('*', function(req, res) {
+    console.log(`Catch-all route hit for: ${req.url}`);
+    const indexPath = path.join(clientPath, 'index.html');
+    
+    if (fs.existsSync(indexPath)) {
+      console.log(`Serving index.html for: ${req.url}`);
+      res.sendFile(indexPath);
+    } else {
+      console.error(`index.html not found at: ${indexPath}`);
+      res.status(404).send('Not Found');
+    }
   });
 } else {
   // Handle development environment
@@ -50,6 +76,11 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(`Error occurred: ${err.stack}`);
+  res.status(500).send('Something broke!');
+});
+
 const PORT = process.env.PORT || 7000;
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
-
