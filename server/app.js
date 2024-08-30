@@ -36,13 +36,14 @@ app.use('/api', updateAddress);
 
 // Serve static files in production
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'client/build')));
+  // Serve static files from the correct 'dist' directory
+  app.use(express.static(path.join(__dirname, 'client/dist')));
 
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+    res.sendFile(path.join(__dirname, 'client/dist', 'index.html'));
   });
 } else {
-  
+  // Handle development environment
   app.get('/', (req, res) => {
     res.send('Backend is running. React app is served by the development server.');
   });
