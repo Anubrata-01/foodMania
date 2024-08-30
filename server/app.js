@@ -24,12 +24,6 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
-// Debugging middleware
-app.use((req, res, next) => {
-  console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
-  next();
-});
-
 // Database connection
 connectToDB();
 
@@ -42,33 +36,29 @@ app.use('/api', orderDetails);
 app.use('/api', updateAddress);
 
 if (process.env.NODE_ENV === 'production') {
-  const clientPath = path.join(__dirname, 'client/dist');
+  // Corrected path to client/dist
+  const clientPath = path.join(__dirname, '..', 'client', 'dist');
   
   console.log(`Serving static files from: ${clientPath}`);
   
   // Check if the client/dist directory exists
   if (fs.existsSync(clientPath)) {
     console.log('client/dist directory exists');
+    
+    // Serve static files from the React app
+    app.use(express.static(clientPath));
+
+    // Serve the index.html file for any request that doesn't match an API route or static file
+    app.get('*', function(req, res) {
+      console.log(`Catch-all route hit for: ${req.url}`);
+      res.sendFile(path.join(clientPath, 'index.html'));
+    });
   } else {
     console.error('client/dist directory does not exist');
+    app.use((req, res) => {
+      res.status(500).send('Server configuration error: client/dist not found');
+    });
   }
-
-  // Serve static files from the React app
-  app.use(express.static(clientPath));
-
-  // Serve the index.html file for any request that doesn't match an API route or static file
-  app.get('*', function(req, res) {
-    console.log(`Catch-all route hit for: ${req.url}`);
-    const indexPath = path.join(clientPath, 'index.html');
-    
-    if (fs.existsSync(indexPath)) {
-      console.log(`Serving index.html for: ${req.url}`);
-      res.sendFile(indexPath);
-    } else {
-      console.error(`index.html not found at: ${indexPath}`);
-      res.status(404).send('Not Found');
-    }
-  });
 } else {
   // Handle development environment
   app.get('/', (req, res) => {
