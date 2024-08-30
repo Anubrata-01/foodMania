@@ -12,20 +12,20 @@ const updateAddress = require("./routes/updateAddress");
 dotenv.config();
 app.use(express.json());
 
-// app.use(cors({
-//   origin: process.env.NODE_ENV === 'production'
-//     ? process.env.CORS_ORIGIN
-//     : process.env.LOCAL_ORIGIN,
-//   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-//   allowedHeaders: ['Content-Type', 'Authorization'],
-// }));
-
 app.use(cors({
-  origin: 
-    'http://localhost:5173',  
+  origin: process.env.NODE_ENV === 'production'
+    ? process.env.CORS_ORIGIN
+    : process.env.LOCAL_ORIGIN,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
+
+// app.use(cors({
+//   origin: 
+//     'http://localhost:5173',  
+//   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+//   allowedHeaders: ['Content-Type', 'Authorization'],
+// }));
 const PORT = process.env.PORT || 7000;
 
 app.get('/', (req, res) => {
