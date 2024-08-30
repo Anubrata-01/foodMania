@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+
 //  const API_URL="https://www.swiggy.com/dapi/restaurants/list/v5?lat=22.4714457&lng=88.3844319&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING%27" 
  const API_URL= "https://cors-handlers.vercel.app/api/?url=https%3A%2F%2Fwww.swiggy.com%2Fdapi%2Frestaurants%2Flist%2Fv5%3Flat%3D22.469788246717883%26lng%3D88.3891574665904%26is-seo-homepage-enabled%3Dtrue%26page_type%3DDESKTOP_WEB_LISTING"//CORS-handled url
  export default API_URL;
@@ -26,5 +28,12 @@
   ];
 
   export const OnlineFoodDeliverTitle="Restaurants with online food delivery in Kolkata"
-  export const APP_URL="https://foodmania-backend-8ran.onrender.com" ;
+ 
+
+ export const APP_URL = import.meta.env.PROD
+  ? import.meta.env.VITE_APP_URL_PROD
+  : import.meta.env.VITE_APP_URL_DEV;
+
+
 const url="http://foodmania-backend-8ran.onrender.com"
+// const seesion="?session_id={CHECKOUT_SESSION_ID}"

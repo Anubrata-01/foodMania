@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { userAddressDetailsAtom } from "../storeAtom/Atom";
 import { toast } from "react-toastify";
-import API_URL, { APP_URL } from "../constant/data";
+import  { APP_URL } from "../constant/data";
 const Success = () => {
   const [userAddressDetails, setUserAddressDetails] = useAtom(
     userAddressDetailsAtom
