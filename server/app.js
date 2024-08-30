@@ -1,5 +1,5 @@
 const express = require('express');
-const app = express();
+const path = require('path');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const connectToDB = require('./database/db');
@@ -9,7 +9,10 @@ const checkoutSession = require("./routes/checkOutSession");
 const paymentSuccess = require("./routes/paymentSuccess");
 const orderDetails = require("./routes/getOrderDetails");
 const updateAddress = require("./routes/updateAddress");
+
 dotenv.config();
+const app = express();
+
 app.use(express.json());
 
 app.use(cors({
@@ -20,20 +23,10 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
-// app.use(cors({
-//   origin: 
-//     'http://localhost:5173',  
-//   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-//   allowedHeaders: ['Content-Type', 'Authorization'],
-// }));
-const PORT = process.env.PORT || 7000;
-
-app.get('/', (req, res) => {
-  res.send('Backend is running on port ');
-});
-
+// Database connection
 connectToDB();
 
+// API routes
 app.use('/api', checkoutSession);
 app.use('/api', saveAddress);
 app.use('/api', getAddress);
@@ -41,4 +34,20 @@ app.use('/api', paymentSuccess);
 app.use('/api', orderDetails);
 app.use('/api', updateAddress);
 
+// Serve static files in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'client/build')));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  });
+} else {
+  
+  app.get('/', (req, res) => {
+    res.send('Backend is running. React app is served by the development server.');
+  });
+}
+
+const PORT = process.env.PORT || 7000;
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+
