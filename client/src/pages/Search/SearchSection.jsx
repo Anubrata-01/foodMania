@@ -63,7 +63,7 @@ console.log(allRestaurantdata);
   };
 
   return (
-    <div className='bg-slate-300 '>
+    <div className='bg-slate-300 min-h-screen overflow-scroll no-scrollbar '>
       <div className='w-[80%] md:w-[40%] ml-[10%] md:ml-[30%]'>
         <input
           type="text"
@@ -74,7 +74,7 @@ console.log(allRestaurantdata);
         />
       </div>
       {displayRestaurant ? (
-        <div className='w-[80%] md:w-[40%] h-[450px] overflow-scroll ml-[10%] md:ml-[30%] mt-[2%] no-scrollbar'>
+        <div className='w-[80%] md:w-[40%] h-[430px]  overflow-scroll ml-[10%] md:ml-[30%] mt-[2%] no-scrollbar'>
           {isLoading && <p>Loading...</p>}
           {error && <p>Error loading data</p>}
           <ul>

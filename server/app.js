@@ -16,6 +16,7 @@ dotenv.config();
 const app = express();
 
 app.use(express.json());
+console.log(`Running in ${process.env.NODE_ENV} mode`);
 app.use(cors({
   origin: process.env.NODE_ENV === 'production'
     ? process.env.CORS_ORIGIN
