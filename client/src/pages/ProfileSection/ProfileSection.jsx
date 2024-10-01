@@ -7,7 +7,9 @@ const ProfileSection = () => {
   const [address, setAddress] = useState();
   const [showModal, setShowModal] = useState(false);
   const [editAddress, setEditAddress] = useState({});
-  const { _id, PhNo, city, addressLine1, country, state, zipCode } = address ? address[0] : {};
+  const user = address?address.filter((address)=>address?.name===userDetails?.name) :"";
+  const { _id,name, PhNo, city, addressLine1, country, state, zipCode }=user?.[0] || ""
+  console.log(user)
   const handleEdit = (id) => {
     const addressToEdit = address.find(addr => addr._id === id);
     setEditAddress(addressToEdit || {});
@@ -25,7 +27,7 @@ const ProfileSection = () => {
   }
 
   useEffect(() => {
-    getUserAddressDetails({setAddress})
+    getUserAddressDetails({setAddress},userDetails?.name)
   }, [address,setAddress])
 
   return (

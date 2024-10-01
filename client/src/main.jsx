@@ -37,7 +37,7 @@ const router = createBrowserRouter([
       { path: ":userId", element: <Suspense><MoodItemContainer/></Suspense> },
       { path: "/top-res/:userId", element: <Suspense><FoodDeliveryDetails/></Suspense>  },
       { path: "/mod-restaurant/:userId", element:<Suspense><FoodDeliveryDetails/></Suspense> },
-      { path: "/online-restaurant/:userId", element: <FoodDeliveryDetails/> },
+      { path: "/online-restaurant/:userId", element: <Suspense fallback={<ShimmerEffect/>}><FoodDeliveryDetails/></Suspense> },
       { path: "/searched-food/:userId", element: <Suspense fallback={<ShimmerEffect/>}><FoodDeliveryDetails/></Suspense>  },
       { path: "/cart", element: <Suspense><CartComponent/></Suspense> },
       { path: "/search", element: <SearchSection /> },

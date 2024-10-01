@@ -47,9 +47,9 @@ const Cart = () => {
   const ImgCon = useMemo(
     () => (
       <img
-        src="https://food-plaza-project.onrender.com/Cart-empty.cdd853dc.png"
+        src="https://w7.pngwing.com/pngs/91/848/png-transparent-empty-cart-illustration.png"
         alt="Empty Cart"
-        className="w-32 h-32 mb-4"
+        className="w-32 h-32 mb-4 bg-transparent"
         loading="lazy"
       />
     ),

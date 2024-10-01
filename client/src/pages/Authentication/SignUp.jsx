@@ -52,7 +52,7 @@ const SignUpForm = () => {
         className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md"
       >
         <h2 className="text-3xl font-bold mb-6 text-center text-orange-600">
-          Create Your Swiggy Account
+          Create Your Foodstore Account
         </h2>
 
         <div className="mb-4">

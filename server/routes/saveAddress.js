@@ -4,7 +4,7 @@ const Address=require("../modles/ShippingAddress");
 
 router.post('/saveAddress',async (req, res) => {
   try {
-    const { PhNo, addressLine1, city, state, zipCode, country } = req.body;
+    const { name, PhNo, addressLine1, city, state, zipCode, country } = req.body;
 
     const existingAddress=await Address.findOne({
       PhNo, 

@@ -1,13 +1,14 @@
 import { toast } from "react-toastify";
 import API_URL, { APP_URL } from "../../constant/data";
 
-export const getUserAddressDetails = async ({setAddress}) => {
+export const getUserAddressDetails = async ({setAddress},name) => {
     try {
       const response = await fetch(`${APP_URL}/api/getAddress`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
+
       });
       const data = await response.json();
       setAddress(data);

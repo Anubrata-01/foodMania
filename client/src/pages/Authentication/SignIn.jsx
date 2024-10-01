@@ -33,7 +33,7 @@ const SignInForm = () => {
       localStorage.setItem("userDetails", JSON.stringify(user)); 
       setLoading(false);
       navigate("/");
-      toast.success("Jaa zee le apni Zindagi!!");
+      toast.success("Logged in successfully!!");
     } catch (error) {
       setLoading(false);
       console.error('Error signing in:', error.message);
