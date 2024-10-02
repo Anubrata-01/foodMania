@@ -7,7 +7,7 @@ const ProfileSection = () => {
   const [address, setAddress] = useState();
   const [showModal, setShowModal] = useState(false);
   const [editAddress, setEditAddress] = useState({});
-  const user = address?address.filter((address)=>address?.name===userDetails?.name) :"";
+  const user = address?address.filter((address)=>address?.name===userDetails?.name) :address?.[4];
   const { _id,name, PhNo, city, addressLine1, country, state, zipCode }=user?.[0] || ""
   console.log(user)
   const handleEdit = (id) => {
