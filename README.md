@@ -60,7 +60,7 @@
 
 ## 📍 Overview
 
-<code>❯ FoodMania is an innovative and responsive web application that revolutionizes the way people order food online. Inspired by platforms like Swiggy, FoodMania connects users with a wide variety of restaurants, allowing them to browse menus, place orders, and track deliveries in real-time. Whether it's a quick snack or a gourmet meal, FoodMania ensures that delicious food is just a few clicks away.</code>
+<code>❯ FoodStore is a modern food delivery application inspired by Swiggy, designed to connect users with a wide range of local restaurants and food options. With a user-friendly interface and seamless navigation,.</code>
 
 ---
 
