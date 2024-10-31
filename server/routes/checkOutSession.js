@@ -20,12 +20,13 @@ router.post('/create-checkout-session', async (req, res) => {
 
   // Hardcoding success and cancel URLs based on environment
   const successUrl = process.env.NODE_ENV === 'production' 
-    ? 'https://foodmaniaclient.onrender.com/success?session_id={CHECKOUT_SESSION_ID}' 
-    : 'http://localhost:5173/success?session_id={CHECKOUT_SESSION_ID}';
+    ? 'https://foodmaniaclient.onrender.com/#/success?session_id={CHECKOUT_SESSION_ID}' 
+    : 'http://localhost:5173/#/success?session_id={CHECKOUT_SESSION_ID}';
 
-  const cancelUrl = process.env.NODE_ENV === 'production' 
-    ? 'https://foodmaniaclient.onrender.com/cancel' 
-    : 'http://localhost:5173/cancel';
+const cancelUrl = process.env.NODE_ENV === 'production' 
+    ? 'https://foodmaniaclient.onrender.com/#/cancel' 
+    : 'http://localhost:5173/#/cancel';
+
 
   console.log(`Environment: ${process.env.NODE_ENV}`);
   console.log(`Success URL: ${successUrl}`);
